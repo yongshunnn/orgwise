@@ -200,9 +200,10 @@ const STYLE = `
 /* ── DATA ─────────────────────────────────────────────────── */
 
 const INDUSTRIES = [
-  ["services","Services"],["professional","Professional services"],
-  ["retail","Retail / F&B"],["manufacturing","Manufacturing"],
-  ["logistics","Logistics"],["construction","Construction"],
+  ["fnb","F&B / Hospitality"],["retail","Retail"],
+  ["professional","Professional services"],["healthcare","Healthcare / Wellness"],
+  ["education","Education / Training"],["construction","Construction / Real estate"],
+  ["manufacturing","Manufacturing"],["logistics","Logistics / Transport"],
   ["tech","Tech / software"],["other","Other"],
 ];
 const HEADCOUNT = [["micro","1–9"],["small","10–29"],["mid","30–99"],["large","100–199"]];
@@ -244,13 +245,15 @@ const CHALLENGES: [string,string,string][] = [
 /* prevalence % per industry — shown on challenge cards */
 const PREVALENCE: Record<string, Record<string,number>> = {
   all:          { expensive:72,talent:70,margins:66,turnover:55,admin:48,scale:46,tech:47,keyperson:42,expand:38,marketing:44,succession:22,modernise:35,scalepain:38,founder:41,distress:28,ma:12,newline:31,compliance:38 },
-  services:     { expensive:61,talent:67,margins:63,turnover:48,admin:52,scale:41,tech:43,keyperson:44,expand:42,marketing:51,succession:24,modernise:32,scalepain:36,founder:49,distress:26,ma:11,newline:33,compliance:36 },
+  fnb:          { expensive:75,talent:62,margins:78,turnover:82,admin:42,scale:36,tech:38,keyperson:28,expand:22,marketing:48,succession:18,modernise:35,scalepain:32,founder:44,distress:41,ma:8, newline:31,compliance:36 },
   retail:       { expensive:68,talent:65,margins:74,turnover:71,admin:41,scale:38,tech:39,keyperson:32,expand:29,marketing:55,succession:21,modernise:38,scalepain:30,founder:37,distress:38,ma:9, newline:28,compliance:33 },
   professional: { expensive:52,talent:71,margins:55,turnover:44,admin:47,scale:48,tech:44,keyperson:54,expand:39,marketing:42,succession:31,modernise:36,scalepain:47,founder:58,distress:22,ma:16,newline:38,compliance:41 },
   manufacturing:{ expensive:73,talent:58,margins:57,turnover:41,admin:38,scale:44,tech:61,keyperson:38,expand:36,marketing:33,succession:28,modernise:38,scalepain:35,founder:32,distress:27,ma:14,newline:29,compliance:42 },
   tech:         { expensive:68,talent:76,margins:52,turnover:49,admin:39,scale:55,tech:31,keyperson:46,expand:49,marketing:48,succession:19,modernise:41,scalepain:61,founder:52,distress:18,ma:18,newline:44,compliance:35 },
   construction: { expensive:78,talent:72,margins:62,turnover:38,admin:36,scale:48,tech:55,keyperson:34,expand:28,marketing:29,succession:26,modernise:33,scalepain:31,founder:28,distress:24,ma:10,newline:22,compliance:44 },
   logistics:    { expensive:69,talent:63,margins:61,turnover:42,admin:44,scale:52,tech:58,keyperson:36,expand:41,marketing:35,succession:22,modernise:31,scalepain:40,founder:34,distress:25,ma:12,newline:27,compliance:39 },
+  healthcare:   { expensive:55,talent:74,margins:52,turnover:48,admin:51,scale:44,tech:42,keyperson:61,expand:33,marketing:45,succession:38,modernise:39,scalepain:46,founder:62,distress:19,ma:21,newline:36,compliance:55 },
+  education:    { expensive:48,talent:68,margins:49,turnover:52,admin:55,scale:42,tech:44,keyperson:56,expand:28,marketing:58,succession:31,modernise:47,scalepain:38,founder:55,distress:22,ma:14,newline:35,compliance:43 },
 };
 
 /* ── LEVERS ───────────────────────────────────────────────── */
