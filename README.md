@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Orgwise
 
-## Getting Started
+**A people-first business strategy diagnostic for Singapore SMEs.**
 
-First, run the development server:
+Answer 3 steps about your business. Get back a clear read on where to put your energy — recruit, develop, outsource, automate, or go regional — grounded in real Singapore manpower realities.
+
+## Live demo
+> Deploy first, then add your URL here.
+
+## Features
+- 3-step diagnostic (industry, challenge, optional financials)
+- Rules-based engine → instant energy allocation across 5 levers
+- AI deep-dive via Claude (optional, server-side API call)
+- Fully client-side analysis — no data stored
+- Mobile responsive
+
+## Quick start
 
 ```bash
+git clone https://github.com/yongshunnn/orgwise.git
+cd orgwise
+npm install
+cp .env.example .env.local   # add your ANTHROPIC_API_KEY
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Push to GitHub, connect to Vercel, add `ANTHROPIC_API_KEY` as environment variable. Done.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See `CLAUDE.md` for full technical handoff notes.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Built by
+[Elevate Payroll Pte Ltd](https://elevate-payroll.com) · [StaffGo](https://staffgo.sg) · [Straits EOR](https://straitseor.com)
