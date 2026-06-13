@@ -65,6 +65,12 @@ const STYLE = `
   .ow-privacy { font-size:12px; color:var(--ink2); margin-top:14px; display:flex; gap:8px; align-items:flex-start; }
   .ow-ind-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
   .ow-navrow { display:flex; justify-content:space-between; align-items:center; margin-top:30px; }
+  .ow-q-hint { font-size:12px; color:var(--ink2); margin:-4px 0 12px; line-height:1.55; }
+  .ow-sig-block { margin-top:24px; padding-top:20px; border-top:1px solid var(--line); }
+  .ow-sig-head { font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; margin-bottom:4px; }
+  .ow-sig-desc { font-size:12px; color:var(--ink2); margin-bottom:0; line-height:1.55; }
+  .ow-seg button small { display:block; font-size:11px; font-weight:400; color:var(--ink2); margin-top:3px; line-height:1.35; }
+  .ow-seg button.sel small { color:rgba(255,255,255,.65); }
   /* challenge ranking grid */
   .ow-ch-hint { font-size:12px; color:var(--ink2); background:#F6F8FA; border:1px solid var(--line); border-radius:9px; padding:10px 14px; margin-bottom:14px; }
   .ow-rank-legend { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
@@ -208,14 +214,18 @@ const FUNCTIONS = [
 ];
 const MARGIN   = [["healthy","Healthy"],["tight","Tight"],["loss","Loss-making"],["skip","Rather not say"]];
 const MANPOWER = [["lt30","Under 30%"],["30to50","30–50%"],["gt50","Over 50%"],["skip","Rather not say"]];
-const MARKETING_INV = [
-  ["none","Not investing yet"],["adhoc","Ad-hoc / inconsistent"],
-  ["some","Some spend, no clear strategy"],["active","Active spend, want more ROI"],
-  ["strong","Strong and scaling"],
+const MARKETING_INV: [string,string,string][] = [
+  ["none",   "Not investing yet",          "No active channels or marketing budget at all"],
+  ["adhoc",  "Ad-hoc only",               "Some activity but no consistent plan or spend"],
+  ["some",   "Spending — no clear strategy","Budget allocated but hard to measure what's working"],
+  ["active", "Active — want better ROI",   "Campaigns running regularly, returns could be sharper"],
+  ["strong", "Strong and scaling",         "Marketing engine is working and you're growing it"],
 ];
-const GROWTH_AMB = [
-  ["no","No, focused locally"],["exploring","Exploring the idea"],
-  ["planning","Actively planning expansion"],["expanding","Already expanding, scaling up"],
+const GROWTH_AMB: [string,string,string][] = [
+  ["no",       "No — staying local",        "All growth will remain within Singapore"],
+  ["exploring","Exploring the idea",        "Thinking about it, no concrete markets or timeline yet"],
+  ["planning", "Actively planning",         "Specific markets identified, working toward entry"],
+  ["expanding","Already in other markets",  "Operations or hires outside SG, scaling up presence"],
 ];
 
 const CHALLENGES: [string,string,string][] = [
@@ -780,11 +790,29 @@ export default function Page() {
             <div className="ow-q">Where does the work pile up? <span className="opt">(optional, pick any)</span></div>
             <div className="ow-seg">{FUNCTIONS.map(([v,l])=><button key={v} className={a.funcs.includes(v)?"sel":""} onClick={()=>toggleFn(v)}>{l}</button>)}</div>
 
-            <div style={{marginTop:22,borderTop:"1px solid var(--line)",paddingTop:18}}>
-              <div className="ow-q">Marketing investment <span className="opt">(optional)</span></div>
-              <div className="ow-seg">{MARKETING_INV.map(([v,l])=><button key={v} className={a.marketing===v?"sel":""} onClick={()=>set("marketing",v)}>{l}</button>)}</div>
-              <div className="ow-q">Growth beyond Singapore? <span className="opt">(optional)</span></div>
-              <div className="ow-seg">{GROWTH_AMB.map(([v,l])=><button key={v} className={a.growth===v?"sel":""} onClick={()=>set("growth",v)}>{l}</button>)}</div>
+            <div className="ow-sig-block">
+              <div className="ow-sig-head">Two more signals <span style={{fontWeight:400,color:"var(--ink2)",fontSize:13}}>(optional)</span></div>
+              <div className="ow-sig-desc">These tell us whether digital marketing or regional expansion should feature in your strategy. Skip if not relevant.</div>
+
+              <div className="ow-q" style={{marginTop:20}}>Current marketing investment</div>
+              <div className="ow-q-hint">We use this to score the <strong>Market lever</strong> — whether building a digital marketing engine (and the PSG grant, up to 50%) should be part of your plan.</div>
+              <div className="ow-seg">
+                {MARKETING_INV.map(([v,l,sub])=>(
+                  <button key={v} style={{textAlign:"left"}} className={a.marketing===v?"sel":""} onClick={()=>set("marketing",v)}>
+                    {l}<small>{sub}</small>
+                  </button>
+                ))}
+              </div>
+
+              <div className="ow-q" style={{marginTop:22}}>Growth beyond Singapore?</div>
+              <div className="ow-q-hint">Affects whether regional hiring, <strong>employer-of-record</strong>, or MRA grant support (up to 70% of overseas business development costs, Budget 2026) belongs in your strategy.</div>
+              <div className="ow-seg">
+                {GROWTH_AMB.map(([v,l,sub])=>(
+                  <button key={v} style={{textAlign:"left"}} className={a.growth===v?"sel":""} onClick={()=>set("growth",v)}>
+                    {l}<small>{sub}</small>
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="ow-navrow">
