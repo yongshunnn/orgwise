@@ -224,19 +224,11 @@ const CHALLENGES: [string,string,string][] = [
   ["margins","Margins are squeezed","costs eating profit"],
   ["turnover","High turnover","people keep leaving"],
   ["admin","Drowning in admin","back-office overload"],
-  ["scale","Can't scale operations","growth outpacing the team"],
   ["tech","Falling behind on tech / AI","manual, legacy processes"],
-  ["keyperson","Over-reliant on key people","too much in few heads"],
-  ["expand","Want to expand regionally","eyeing SEA markets"],
+  ["scale","Can't scale operations","growth outpacing the team"],
   ["marketing","Weak marketing engine","no digital presence or strategy"],
-  ["succession","Planning succession or exit","owner transition, next-gen handover"],
-  ["modernise","Business needs to modernise","model change, reposition"],
-  ["scalepain","Scaling pains","outgrowing informal management"],
+  ["keyperson","Over-reliant on key people","too much in few heads"],
   ["founder","Founder bandwidth ceiling","business limited by the owner"],
-  ["distress","Business in distress / turnaround","revenue falling, model broken"],
-  ["ma","Going through M&A or merger","integration, org overlap"],
-  ["newline","Launching a new line","new product or service stream"],
-  ["compliance","Compliance step-change","new regulation forcing restructure"],
 ];
 
 /* prevalence % per industry — shown on challenge cards */
@@ -766,7 +758,7 @@ export default function Page() {
             </div>
 
             <div className="ow-ch-grid">
-              {CHALLENGES.map(([id,name,sub])=>{
+              {[...CHALLENGES].sort((a,b)=>(prevData[b[0]]||0)-(prevData[a[0]]||0)).map(([id,name,sub])=>{
                 const rc=rankClass(id);
                 const pct=prevData[id]||0;
                 return (
