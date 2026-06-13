@@ -634,7 +634,7 @@ export default function Page() {
   async function runAI() {
     if(!result) return;
     setAi({state:"loading",text:""});
-    const L=(arr:[string,string][],v:string)=>(arr.find(x=>x[0]===v)||[,v])[1]||v;
+    const L=(arr:[string,...string[]][],v:string)=>(arr.find(x=>x[0]===v)||[,v])[1]||v;
     const chNames=a.challenges.map(id=>{const ch=CHALLENGES.find(c=>c[0]===id);return ch?ch[1]:id;});
     const alloc=result.top.map(k=>`${LEVERS[k]?.label} ${result.pct[k]}%`).join(", ");
     const body={
@@ -646,8 +646,8 @@ export default function Page() {
       funcs:a.funcs.map(f=>(FUNCTIONS.find(x=>x[0]===f)||[,f])[1]||f).join(", ")||"not specified",
       margin:a.margin!=="skip"?a.margin:"not shared",
       manpower:a.manpower!=="skip"?a.manpower:"not shared",
-      marketing:L(MARKETING_INV as [string,string][],a.marketing)||"not specified",
-      growth:L(GROWTH_AMB as [string,string][],a.growth)||"not specified",
+      marketing:L(MARKETING_INV as [string,string,string][],a.marketing)||"not specified",
+      growth:L(GROWTH_AMB as [string,string,string][],a.growth)||"not specified",
       alloc,primary:LEVERS[result.primary]?.label||result.primary,
     };
     try {
