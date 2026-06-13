@@ -104,7 +104,29 @@ const STYLE = `
   .ow-cta-bar p { color:#D4DAE8; font-size:14px; margin:0; max-width:42ch; }
   .ow-cta-bar strong { color:#fff; display:block; font-family:'Space Grotesk',sans-serif; font-size:17px; margin-bottom:4px; }
   @media (prefers-reduced-motion:reduce){ *{ transition:none!important; animation:none!important; } }
-  @media (max-width:560px){ .ow-card{ padding:22px; } .ow-move{ padding:18px; } }
+  @media (max-width:560px){
+    .ow-card{ padding:22px; }
+    .ow-move{ padding:18px; }
+    .ow-lede{ font-size:16px; }
+    .ow-rlede{ font-size:15px; }
+  }
+  @media (max-width:480px){
+    .ow-wrap{ padding:20px 16px 48px; }
+    .ow-brandbar{ margin-bottom:24px; }
+    .ow-steptitle{ font-size:20px; }
+    .ow-btn{ font-size:14px; padding:12px 18px; }
+    .ow-seg{ display:grid; grid-template-columns:1fr 1fr; }
+    .ow-grid{ grid-template-columns:1fr 1fr; }
+    .ow-navrow{ gap:10px; }
+    .ow-alloc{ padding:18px; }
+    .ow-bar{ height:38px; }
+    .ow-legend{ grid-template-columns:1fr 1fr; }
+    .ow-consider{ padding:18px; }
+    .ow-ai{ padding:18px; }
+    .ow-cta-bar{ padding:20px; }
+    .ow-foot{ flex-direction:column; }
+    .ow-foot .ow-btn{ width:100%; justify-content:center; }
+  }
 `;
 
 const INDUSTRIES = [
