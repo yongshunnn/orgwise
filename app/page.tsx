@@ -107,12 +107,16 @@ const STYLE = `
   .r3 .ow-ch-fill { background:#3D6BB0; }
   .ow-nav-meta { font-size:12px; color:var(--ink2); }
   /* results */
-  .ow-ranked-chips { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  .ow-context { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin-bottom:22px; }
+  .ow-context-meta { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+  .ow-context-tag { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink2); background:#F4F6F9; border:1px solid var(--line); border-radius:100px; padding:3px 10px; }
+  .ow-context-chips { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+  .ow-context-summary { font-size:14px; color:var(--ink2); line-height:1.65; margin:10px 0 0; padding-top:10px; border-top:1px solid var(--line); }
   .ow-rc { font-size:12px; font-weight:500; border-radius:100px; padding:4px 12px; display:flex; align-items:center; gap:5px; }
   .ow-rc1 { background:#FFF3E0; color:#8B5000; border:1px solid #DD8A2E44; }
   .ow-rc2 { background:#E0F5F0; color:#0D4A46; border:1px solid #1E6E6A44; }
   .ow-rc3 { background:#E8EFF8; color:#1A3B6A; border:1px solid #3D6BB044; }
-  .ow-rc-num { font-size:10px; opacity:.65; }
+  .ow-rc-num { font-size:10px; opacity:.65; margin-right:2px; }
   .ow-verdict { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:clamp(24px,4.5vw,38px); letter-spacing:-.03em; line-height:1.1; margin:6px 0 10px; max-width:22ch; }
   .ow-verdict em { font-style:normal; color:var(--amber); }
   .ow-rlede { color:var(--ink2); font-size:16px; max-width:60ch; margin-bottom:24px; }
@@ -854,6 +858,44 @@ export default function Page() {
         {step===3&&result&&(
           <div>
             <div className="ow-eyebrow">Your read</div>
+
+            {/* context recap */}
+            {(()=>{
+              const industryLabel = INDUSTRIES.find(([v])=>v===a.industry)?.[1]||a.industry;
+              const headLabel     = HEADCOUNT.find(([v])=>v===a.head)?.[1]||"";
+              const trajLabel     = TRAJ.find(([v])=>v===a.traj)?.[1]||"";
+              const mixLabel      = MIX.find(([v])=>v===a.mix)?.[1]||"";
+              const ch1           = CHALLENGES.find(c=>c[0]===a.challenges[0]);
+              const ctxMap: Record<string,string> = {
+                turnover: "Losing people faster than you hire is expensive and demoralising — the fix is usually structural, not just pay.",
+                expensive:"Labour costs are compressing your options at every turn.",
+                margins:  "When margin is thin, every people decision carries outsized consequence.",
+                talent:   "The right people feel perpetually just out of reach — local supply is thin and the competition for them is real.",
+                admin:    "Back-office overload is a silent drain on the hours that should be driving growth.",
+                tech:     "Manual processes are the invisible ceiling — the team is doing more work than the output shows.",
+                scale:    "Growth is exposing the cracks. The structure that got you here won't get you there.",
+                marketing:"The work is good, but the market doesn't know it yet — the engine needs building.",
+                keyperson:"Too much institutional knowledge in too few people is a fragility the business can't afford.",
+                founder:  "The business runs through one person's bandwidth. That's the ceiling — and it's structural.",
+              };
+              const summaryLine = ch1 ? ctxMap[ch1[0]] : null;
+              return (
+                <div className="ow-context">
+                  <div className="ow-context-meta">
+                    {[industryLabel, headLabel, trajLabel, mixLabel].filter(Boolean).map((t,i)=>(
+                      <span key={i} className="ow-context-tag">{t}</span>
+                    ))}
+                  </div>
+                  <div className="ow-context-chips">
+                    {a.challenges.map((id,i)=>{
+                      const ch=CHALLENGES.find(c=>c[0]===id);
+                      return <span key={id} className={`ow-rc ow-rc${i+1}`}><span className="ow-rc-num">#{i+1}</span>{ch?ch[1]:id}</span>;
+                    })}
+                  </div>
+                  {summaryLine&&<p className="ow-context-summary">{summaryLine}</p>}
+                </div>
+              );
+            })()}
 
             <h2 className="ow-verdict">{result.verdict} <em>{LEVERS[result.primary]?.label?.toLowerCase()||result.primary}.</em></h2>
             <p className="ow-rlede">Here's how your attention should split, the three moves that follow, and the strategy calls behind them.</p>
