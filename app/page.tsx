@@ -72,12 +72,19 @@ const STYLE = `
   .ow-seg button small { display:block; font-size:11px; font-weight:400; color:var(--ink2); margin-top:3px; line-height:1.35; }
   .ow-seg button.sel small { color:rgba(255,255,255,.65); }
   /* challenge ranking grid */
-  .ow-ch-hint { font-size:12px; color:var(--ink2); background:#F6F8FA; border:1px solid var(--line); border-radius:9px; padding:10px 14px; margin-bottom:14px; }
-  .ow-rank-legend { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
-  .ow-rl { font-size:11px; font-weight:500; border-radius:100px; padding:3px 10px; display:flex; align-items:center; gap:5px; }
-  .ow-rl1 { background:#FFF3E0; color:#8B5000; border:1px solid #DD8A2E44; }
-  .ow-rl2 { background:#E0F5F0; color:#0D4A46; border:1px solid #1E6E6A44; }
-  .ow-rl3 { background:#E8EFF8; color:#1A3B6A; border:1px solid #3D6BB044; }
+  .ow-rank-slots { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px; }
+  .ow-rank-slot { display:flex; align-items:center; gap:8px; padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:#F6F8FA; min-width:0; }
+  .ow-rank-slot-num { width:22px; height:22px; border-radius:50%; background:var(--line); color:var(--ink2); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .ow-rank-slot-label { font-size:11px; font-weight:500; color:var(--ink2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .ow-rank-slot.rs1 { border-color:var(--amber); background:#FFF8F0; }
+  .ow-rank-slot.rs1 .ow-rank-slot-num { background:var(--amber); color:#fff; }
+  .ow-rank-slot.rs1 .ow-rank-slot-label { color:#8B5000; font-weight:600; }
+  .ow-rank-slot.rs2 { border-color:var(--teal); background:#F0FAF7; }
+  .ow-rank-slot.rs2 .ow-rank-slot-num { background:var(--teal); color:#fff; }
+  .ow-rank-slot.rs2 .ow-rank-slot-label { color:#0D4A46; font-weight:600; }
+  .ow-rank-slot.rs3 { border-color:#3D6BB0; background:#EFF4FB; }
+  .ow-rank-slot.rs3 .ow-rank-slot-num { background:#3D6BB0; color:#fff; }
+  .ow-rank-slot.rs3 .ow-rank-slot-label { color:#1A3B6A; font-weight:600; }
   .ow-ch-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(185px,1fr)); gap:9px; margin-bottom:16px; }
   .ow-ch-card { position:relative; cursor:pointer; text-align:left; border:1px solid var(--line); background:#fff; border-radius:11px; padding:13px 14px 11px; transition:border-color .12s, background .12s; user-select:none; }
   .ow-ch-card:hover { border-color:var(--ink2); }
@@ -98,13 +105,6 @@ const STYLE = `
   .r1 .ow-ch-fill { background:var(--amber); }
   .r2 .ow-ch-fill { background:var(--teal); }
   .r3 .ow-ch-fill { background:#3D6BB0; }
-  .ow-status-row { display:flex; align-items:center; justify-content:space-between; min-height:28px; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
-  .ow-status-pills { display:flex; gap:6px; flex-wrap:wrap; }
-  .ow-sp { font-size:12px; font-weight:500; border-radius:100px; padding:4px 10px; }
-  .ow-sp1 { background:#FFF3E0; color:#8B5000; }
-  .ow-sp2 { background:#E0F5F0; color:#0D4A46; }
-  .ow-sp3 { background:#E8EFF8; color:#1A3B6A; }
-  .ow-status-hint { font-size:12px; color:var(--ink2); }
   .ow-nav-meta { font-size:12px; color:var(--ink2); }
   /* results */
   .ow-ranked-chips { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
@@ -145,9 +145,9 @@ const STYLE = `
   .ow-tag-b { background:#EFF4FB; border-color:#3D6BB044; color:#1A3B6A; }
   .ow-consider { background:#F6F8FA; border:1px solid var(--line); border-radius:14px; padding:22px; margin-bottom:24px; }
   .ow-consider ul { padding:0; margin:0; list-style:none; }
-  .ow-consider li { display:flex; gap:11px; margin-bottom:13px; font-size:13px; }
-  .ow-consider li:last-child { margin-bottom:0; }
-  .ow-cn { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--teal); flex:none; margin-top:2px; white-space:nowrap; }
+  .ow-consider li { display:block; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--line); font-size:13px; }
+  .ow-consider li:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .ow-cn { display:block; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--teal); white-space:nowrap; margin-bottom:5px; }
   .ow-con-text { color:var(--ink2); line-height:1.65; }
   .ow-con-text strong { color:var(--ink); font-weight:600; }
   .ow-ai { background:var(--ink); color:#E9ECF4; border-radius:16px; padding:24px; margin-bottom:20px; }
@@ -160,12 +160,12 @@ const STYLE = `
   .ow-ai-out strong { color:#fff; }
   .ow-spin { display:inline-block; width:14px; height:14px; border:2px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:owspin .7s linear infinite; }
   @keyframes owspin { to { transform:rotate(360deg); } }
-  .ow-action-row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:20px; }
-  .ow-btn-dl { font-size:13px; font-weight:600; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:10px 18px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; transition:background .12s; }
-  .ow-btn-dl:hover { background:#F0F2F5; }
-  .ow-btn-restart { font-size:13px; color:var(--ink2); background:transparent; border:none; cursor:pointer; padding:10px 4px; text-decoration:underline; text-underline-offset:3px; }
-  .ow-toast { display:none; font-size:12px; color:var(--teal); background:#E0F5F0; border:1px solid #1E6E6A44; border-radius:8px; padding:6px 12px; align-items:center; gap:6px; }
+  .ow-toast { display:none; font-size:12px; color:rgba(255,255,255,.7); margin-top:8px; align-items:center; gap:6px; }
   .ow-toast.show { display:inline-flex; }
+  .ow-btn-dl-cta { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.25); border-radius:10px; padding:12px 20px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; transition:background .12s; }
+  .ow-btn-dl-cta:hover { background:rgba(255,255,255,.2); }
+  .ow-btn-restart-cta { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; background:transparent; color:rgba(255,255,255,.65); border:1px solid rgba(255,255,255,.2); border-radius:10px; padding:12px 20px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; transition:all .12s; }
+  .ow-btn-restart-cta:hover { background:rgba(255,255,255,.08); color:#fff; border-color:rgba(255,255,255,.4); }
   .ow-cta-bar { padding:22px; background:var(--ink); border-radius:16px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; margin-bottom:24px; }
   .ow-cta-bar p { color:#D4DAE8; font-size:13px; margin:0; max-width:44ch; }
   .ow-cta-bar strong { color:#fff; display:block; font-family:'Space Grotesk',sans-serif; font-size:16px; margin-bottom:3px; }
@@ -192,8 +192,8 @@ const STYLE = `
     .ow-consider{ padding:16px; }
     .ow-ai{ padding:16px; }
     .ow-cta-bar{ padding:18px; flex-direction:column; align-items:flex-start; }
-    .ow-rank-legend{ gap:6px; }
-    .ow-ranked-chips{ gap:6px; }
+    .ow-rank-slots{ grid-template-columns:1fr; }
+    .ow-rank-slot-label{ white-space:normal; }
   }
 `;
 
@@ -296,14 +296,14 @@ const MOVE_COPY: Record<string,MoveData> = {
   outsource: {
     fw:"Core vs Context",
     title:"Take non-core work off your plate",
-    body:"Payroll, HR admin and back-office are necessary but don't differentiate you. Standardise and hand them off via <em>HR outsourcing</em> so your team's hours go to what wins clients.",
-    tags:[["n","Payroll outsourcing"],["n","HR admin"],["t","Managed services"]],
+    body:"Payroll, accounting, HR admin and customer support are necessary but don't differentiate you. Standardise and hand them off — via <em>HR outsourcing</em>, bookkeeping services or managed support — so your team's hours go to what wins clients.",
+    tags:[["n","Payroll outsourcing"],["n","Accounting & admin"],["t","Managed services"],["n","Customer support"]],
   },
   automate: {
     fw:"Core vs Context",
-    title:"Automate the repeatable before you re-hire",
-    body:"Map the manual, rules-based work and let AI/tech absorb it. <em>Fractional advisory</em> can scope the right tools without overcommitting to a vendor. PSG co-funds up to 50% of pre-approved solutions (S$30k/yr cap).",
-    tags:[["n","Process automation"],["t","Fractional advisory"],["a","PSG grant · up to 50%"]],
+    title:"Let AI agents take on the repeatable work",
+    body:"Map the manual, rules-based workflows and let AI tools and agents absorb them. Start with one workflow, prove the return, then expand. <em>Fractional advisory</em> can scope the right stack without overcommitting to a vendor.",
+    tags:[["n","AI agents & automation"],["t","Fractional advisory"],["n","Workflow redesign"]],
   },
   regional: {
     fw:"Transaction Cost Economics",
@@ -606,11 +606,12 @@ const TAG_CLASS: Record<string,string> = {n:"ow-tag-n",a:"ow-tag-a",t:"ow-tag-t"
 /* ── MAIN COMPONENT ───────────────────────────────────────── */
 
 export default function Page() {
-  const [step,setStep]     = useState(-1);
-  const [a,setA]           = useState<Answers>({industry:"",head:"",mix:"",traj:"",challenges:[],funcs:[],margin:"",manpower:"",marketing:"",growth:""});
+  const [step,setStep]       = useState(-1);
+  const [a,setA]             = useState<Answers>({industry:"",head:"",mix:"",traj:"",challenges:[],funcs:[],margin:"",manpower:"",marketing:"",growth:""});
   const [openOpt,setOpenOpt] = useState(false);
-  const [ai,setAi]         = useState<{state:string;text:string}>({state:"idle",text:""});
-  const [toast,setToast]   = useState(false);
+  const [openGrowth,setOpenGrowth] = useState(false);
+  const [ai,setAi]           = useState<{state:string;text:string}>({state:"idle",text:""});
+  const [toast,setToast]     = useState(false);
 
   const set=(k:keyof Answers,v:string)=>setA(p=>({...p,[k]:v}));
   const toggleFn=(v:string)=>setA(p=>({...p,funcs:p.funcs.includes(v)?p.funcs.filter((x:string)=>x!==v):[...p.funcs,v]}));
@@ -675,7 +676,7 @@ export default function Page() {
   function resetAll() {
     setStep(-1);
     setA({industry:"",head:"",mix:"",traj:"",challenges:[],funcs:[],margin:"",manpower:"",marketing:"",growth:""});
-    setOpenOpt(false); setAi({state:"idle",text:""});
+    setOpenOpt(false); setOpenGrowth(false); setAi({state:"idle",text:""});
   }
 
   const rankClass=(id:string)=>{
@@ -749,25 +750,19 @@ export default function Page() {
             <div className="ow-steptitle">What's holding you back?</div>
             <div className="ow-subtitle">Rank your top 3 in order — first click is your #1. The percentages are industry context, not a suggestion.</div>
 
-            <div className="ow-rank-legend">
-              <span className="ow-rl ow-rl1">· #1 biggest challenge</span>
-              <span className="ow-rl ow-rl2">· #2 significant</span>
-              <span className="ow-rl ow-rl3">· #3 also present</span>
-            </div>
-
-            <div className="ow-status-row">
-              <div className="ow-status-pills">
-                {a.challenges.map((id,i)=>{
-                  const ch=CHALLENGES.find(c=>c[0]===id);
-                  return <span key={id} className={`ow-sp ow-sp${i+1}`}>{`#${i+1} ${ch?ch[1]:id}`}</span>;
-                })}
-              </div>
-              <div className="ow-status-hint">
-                {a.challenges.length===0?"Select at least 1 to continue":
-                 a.challenges.length===1?"Add 1–2 more for a sharper read":
-                 a.challenges.length===2?"Add 1 more or continue":
-                 "3 of 3 ranked ✓"}
-              </div>
+            <div className="ow-rank-slots">
+              {([0,1,2] as const).map(slot=>{
+                const id=a.challenges[slot];
+                const ch=id?CHALLENGES.find(c=>c[0]===id):null;
+                const rc=["rs1","rs2","rs3"][slot];
+                const placeholder=["Tap a card to set #1","#2 challenge","#3 challenge"][slot];
+                return (
+                  <div key={slot} className={`ow-rank-slot${ch?" "+rc:""}`}>
+                    <div className="ow-rank-slot-num">{slot+1}</div>
+                    <div className="ow-rank-slot-label">{ch?ch[1]:placeholder}</div>
+                  </div>
+                );
+              })}
             </div>
 
             <div className="ow-ch-grid">
@@ -792,31 +787,6 @@ export default function Page() {
 
             <div className="ow-q">Where does the work pile up? <span className="opt">(optional, pick any)</span></div>
             <div className="ow-seg">{FUNCTIONS.map(([v,l])=><button key={v} className={a.funcs.includes(v)?"sel":""} onClick={()=>toggleFn(v)}>{l}</button>)}</div>
-
-            <div className="ow-sig-block">
-              <div className="ow-sig-head">Two more signals <span style={{fontWeight:400,color:"var(--ink2)",fontSize:13}}>(optional)</span></div>
-              <div className="ow-sig-desc">These tell us whether digital marketing or regional expansion should feature in your strategy. Skip if not relevant.</div>
-
-              <div className="ow-q" style={{marginTop:20}}>Current marketing investment</div>
-              <div className="ow-q-hint">We use this to score the <strong>Market lever</strong> — whether building a digital marketing engine (and the PSG grant, up to 50%) should be part of your plan.</div>
-              <div className="ow-seg">
-                {MARKETING_INV.map(([v,l,sub])=>(
-                  <button key={v} style={{textAlign:"left"}} className={a.marketing===v?"sel":""} onClick={()=>set("marketing",v)}>
-                    {l}<small>{sub}</small>
-                  </button>
-                ))}
-              </div>
-
-              <div className="ow-q" style={{marginTop:22}}>Growth beyond Singapore?</div>
-              <div className="ow-q-hint">Affects whether regional hiring, <strong>employer-of-record</strong>, or MRA grant support (up to 70% of overseas business development costs, Budget 2026) belongs in your strategy.</div>
-              <div className="ow-seg">
-                {GROWTH_AMB.map(([v,l,sub])=>(
-                  <button key={v} style={{textAlign:"left"}} className={a.growth===v?"sel":""} onClick={()=>set("growth",v)}>
-                    {l}<small>{sub}</small>
-                  </button>
-                ))}
-              </div>
-            </div>
 
             <div className="ow-navrow">
               <button className="ow-btn ow-btn-ghost" onClick={()=>setStep(0)}>← Back</button>
@@ -847,6 +817,32 @@ export default function Page() {
                 </div>
               )}
             </div>
+
+            <div className="ow-optional" style={{marginTop:10}}>
+              <button className="ow-opthead" onClick={()=>setOpenGrowth(o=>!o)}>
+                <b>Growth & marketing signals</b><span>{openGrowth?"Hide −":"Add (optional) +"}</span>
+              </button>
+              {openGrowth&&(
+                <div className="ow-optbody">
+                  <div className="ow-q">Current marketing investment</div>
+                  <div className="ow-seg">
+                    {MARKETING_INV.map(([v,l,sub])=>(
+                      <button key={v} style={{textAlign:"left"}} className={a.marketing===v?"sel":""} onClick={()=>set("marketing",v)}>
+                        {l}<small>{sub}</small>
+                      </button>
+                    ))}
+                  </div>
+                  <div className="ow-q" style={{marginTop:18}}>Growth beyond Singapore?</div>
+                  <div className="ow-seg">
+                    {GROWTH_AMB.map(([v,l,sub])=>(
+                      <button key={v} style={{textAlign:"left"}} className={a.growth===v?"sel":""} onClick={()=>set("growth",v)}>
+                        {l}<small>{sub}</small>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
             <div className="ow-navrow">
               <button className="ow-btn ow-btn-ghost" onClick={()=>setStep(1)}>← Back</button>
               <button className="ow-btn ow-btn-amber" onClick={()=>{setAi({state:"idle",text:""});setStep(3);}}>See my read →</button>
@@ -858,14 +854,6 @@ export default function Page() {
         {step===3&&result&&(
           <div>
             <div className="ow-eyebrow">Your read</div>
-
-            {/* ranked challenge pills */}
-            <div className="ow-ranked-chips">
-              {a.challenges.map((id,i)=>{
-                const ch=CHALLENGES.find(c=>c[0]===id);
-                return <span key={id} className={`ow-rc ow-rc${i+1}`}><span className="ow-rc-num">#{i+1}</span>{ch?ch[1]:id}</span>;
-              })}
-            </div>
 
             <h2 className="ow-verdict">{result.verdict} <em>{LEVERS[result.primary]?.label?.toLowerCase()||result.primary}.</em></h2>
             <p className="ow-rlede">Here's how your attention should split, the three moves that follow, and the strategy calls behind them.</p>
@@ -938,22 +926,18 @@ export default function Page() {
               {ai.state==="done"&&<MD text={ai.text}/>}
             </div>
 
-            {/* actions */}
-            <div className="ow-action-row">
-              <button className="ow-btn-dl" onClick={handleDownload}>↓ Download results</button>
-              {toast&&<span className="ow-toast show">✓ Saved to downloads</span>}
-            </div>
-
             {/* CTA */}
             <div className="ow-cta-bar">
               <div>
                 <strong>Want to talk through these moves?</strong>
-                <p>We offer recruitment, HR outsourcing, fractional advisory and employer-of-record across SEA.</p>
+                <p>Our network spans recruitment, HR, payroll, fractional leadership, business development, market entry, business matching and more — across SEA and beyond. Whatever your next move looks like, we'd love to connect.</p>
               </div>
-              <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+              <div style={{display:"flex",gap:10,flexWrap:"wrap",alignItems:"center"}}>
                 <a href="mailto:business@staffgo.sg" className="ow-btn ow-btn-amber" style={{textDecoration:"none"}}>Get in touch →</a>
-                <button className="ow-btn-restart" onClick={resetAll}>Start over</button>
+                <button className="ow-btn-dl-cta" onClick={handleDownload}>↓ Download results</button>
+                <button className="ow-btn-restart-cta" onClick={resetAll}>Start over</button>
               </div>
+              {toast&&<span className="ow-toast show">✓ Saved to downloads</span>}
             </div>
 
             <p className="ow-disc">Diagnostic only — not regulated HR, legal, tax or financial advice. Grant figures and manpower rules change; verify before acting. Orgwise is a product of Elevate Payroll Pte Ltd.</p>
