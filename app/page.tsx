@@ -859,6 +859,9 @@ export default function Page() {
           <div>
             <div className="ow-eyebrow">Your read</div>
 
+            <h2 className="ow-verdict">{result.verdict} <em>{LEVERS[result.primary]?.label?.toLowerCase()||result.primary}.</em></h2>
+            <p className="ow-rlede">Here's how your attention should split, the three moves that follow, and the strategy calls behind them.</p>
+
             {/* context recap */}
             {(()=>{
               const industryLabel = INDUSTRIES.find(([v])=>v===a.industry)?.[1]||a.industry;
@@ -896,9 +899,6 @@ export default function Page() {
                 </div>
               );
             })()}
-
-            <h2 className="ow-verdict">{result.verdict} <em>{LEVERS[result.primary]?.label?.toLowerCase()||result.primary}.</em></h2>
-            <p className="ow-rlede">Here's how your attention should split, the three moves that follow, and the strategy calls behind them.</p>
 
             <div className="ow-divider"/>
 
